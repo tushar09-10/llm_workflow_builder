@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0f0f14;
+  --foreground: #e4e4e7;
+  --card: #18181f;
+  --card-hover: #1f1f28;
+  --border: #27272a;
+  --muted: #71717a;
+  --accent: #a855f7;
+  --accent-dim: #7c3aed;
+  --success: #22c55e;
+  --error: #ef4444;
+  --warning: #eab308;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+/* React Flow overrides */
+.react-flow__background {
+  background-color: var(--background) !important;
+}
+
+.react-flow__controls {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+}
+
+.react-flow__controls-button {
+  background: var(--card) !important;
+  border-bottom: 1px solid var(--border) !important;
+  fill: var(--foreground) !important;
+}
+
+.react-flow__controls-button:hover {
+  background: var(--card-hover) !important;
+}
+
+.react-flow__minimap {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+}
+
+/* Custom edge animations */
+@keyframes flowAnimation {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.react-flow__edge-path {
+  stroke: var(--accent) !important;
+  stroke-width: 2 !important;
+}
+
+.animated-edge {
+  stroke-dasharray: 8 4;
+  animation: flowAnimation 0.6s linear infinite;
+}
+
+/* Pulsating glow for running nodes */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--accent), 0 0 16px var(--accent-dim);
+  }
+  50% {
+    box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-dim);
+  }
+}
+
+.node-running {
+  animation: pulseGlow 1.5s ease-in-out infinite;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
