@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { db } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 // POST /api/execute - start an execution run
 export async function POST(req: NextRequest) {
@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     const { workflowId, scope, nodes } = body;
 
     // Create execution run record
-    const run = await db.executionRun.create({
+    const run = await prisma.executionRun.create({
         data: {
             workflowId: workflowId || "unsaved",
             userId,
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
     // Create pending node executions
     for (const node of nodes) {
-        await db.nodeExecution.create({
+        await prisma.nodeExecution.create({
             data: {
                 runId: run.id,
                 nodeId: node.id,

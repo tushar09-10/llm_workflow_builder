@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { db } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 // GET /api/runs/[workflowId] - get execution history for a workflow
 export async function GET(
@@ -14,7 +14,7 @@ export async function GET(
 
     const { workflowId } = await params;
 
-    const runs = await db.executionRun.findMany({
+    const runs = await prisma.executionRun.findMany({
         where: { workflowId, userId },
         include: {
             nodeExecutions: {

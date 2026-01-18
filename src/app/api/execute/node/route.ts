@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { db } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Initialize Gemini client
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
         let output: unknown = null;
 
         // Update node execution to running
-        await db.nodeExecution.updateMany({
+        await prisma.nodeExecution.updateMany({
             where: { runId, nodeId },
             data: { status: "running", startedAt, inputs: inputs },
         });
@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
         const duration = endedAt.getTime() - startedAt.getTime();
 
         // Update node execution
-        await db.nodeExecution.updateMany({
+        await prisma.nodeExecution.updateMany({
             where: { runId, nodeId },
             data: {
                 status: "success",
@@ -119,7 +119,7 @@ export async function POST(req: NextRequest) {
     } catch (err) {
         const error = (err as Error).message;
 
-        await db.nodeExecution.updateMany({
+        await prisma.nodeExecution.updateMany({
             where: { runId, nodeId },
             data: {
                 status: "failed",

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { db } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 // POST /api/execute/[runId]/complete - mark run as complete
 export async function POST(
@@ -16,7 +16,7 @@ export async function POST(
     const body = await req.json();
     const { status } = body;
 
-    const run = await db.executionRun.findFirst({
+    const run = await prisma.executionRun.findFirst({
         where: { id: runId, userId },
     });
 
@@ -27,7 +27,7 @@ export async function POST(
     const endedAt = new Date();
     const duration = endedAt.getTime() - run.startedAt.getTime();
 
-    await db.executionRun.update({
+    await prisma.executionRun.update({
         where: { id: runId },
         data: {
             status,

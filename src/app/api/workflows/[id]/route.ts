@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { db } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 // GET /api/workflows/[id] - get single workflow
 export async function GET(
@@ -14,7 +14,7 @@ export async function GET(
 
     const { id } = await params;
 
-    const workflow = await db.workflow.findFirst({
+    const workflow = await prisma.workflow.findFirst({
         where: { id, userId },
     });
 
@@ -37,7 +37,7 @@ export async function DELETE(
 
     const { id } = await params;
 
-    const workflow = await db.workflow.findFirst({
+    const workflow = await prisma.workflow.findFirst({
         where: { id, userId },
     });
 
@@ -45,7 +45,7 @@ export async function DELETE(
         return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    await db.workflow.delete({ where: { id } });
+    await prisma.workflow.delete({ where: { id } });
 
     return NextResponse.json({ success: true });
 }

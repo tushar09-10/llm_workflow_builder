@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { db } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 // GET /api/workflows - list user's workflows
 export async function GET() {
@@ -9,7 +9,7 @@ export async function GET() {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const workflows = await db.workflow.findMany({
+    const workflows = await prisma.workflow.findMany({
         where: { userId },
         select: {
             id: true,
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
     if (id) {
         // Update existing
-        const existing = await db.workflow.findFirst({
+        const existing = await prisma.workflow.findFirst({
             where: { id, userId },
         });
 
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Workflow not found" }, { status: 404 });
         }
 
-        const updated = await db.workflow.update({
+        const updated = await prisma.workflow.update({
             where: { id },
             data: {
                 name,
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ id: updated.id });
     } else {
         // Create new
-        const created = await db.workflow.create({
+        const created = await prisma.workflow.create({
             data: {
                 userId,
                 name: name || "Untitled Workflow",
