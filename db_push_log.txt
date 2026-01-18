@@ -1,0 +1,12 @@
+
+> llm-workflow-builder@0.1.0 db:push
+> prisma db push
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "llm_workflow_builder", schema "public" at "dpg-d5me7bre5dus73eeuu30-a"
+
+Error: P1001: Can't reach database server at `dpg-d5me7bre5dus73eeuu30-a:5432`
+
+Please make sure your database server is running at `dpg-d5me7bre5dus73eeuu30-a:5432`.
