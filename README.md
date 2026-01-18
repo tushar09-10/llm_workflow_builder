@@ -12,6 +12,29 @@ A visual DAG workflow builder for LLM-based pipelines. Think Weavy-style UI but 
 - Save/load workflows to PostgreSQL
 - Export/import as JSON
 
+## Deployment
+
+### Live Demo
+[INSERT YOUR VERCEL URL HERE]
+
+### Deploy Your Own
+
+**Frontend (Vercel):**
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ftushar09-10%2Fllm_workflow_builder)
+
+**Database (Render):**
+[Deploy to Render](https://render.com/deploy?repo=https://github.com/tushar09-10/llm_workflow_builder)
+
+**Required Environment Variables:**
+- `DATABASE_URL`: Connection string for PostgreSQL (Must allow external connections)
+- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`: Clerk Auth Public Key
+- `CLERK_SECRET_KEY`: Clerk Auth Secret Key
+- `GEMINI_API_KEY`: Google Gemini API Key
+
+**Production Notes:**
+- The build command `npm run build` automatically runs `prisma generate`.
+- Ensure your database region matches your function region for best performance.
+
 ## Setup
 
 ### Prerequisites
