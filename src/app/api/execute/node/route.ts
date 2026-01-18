@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
             where: { runId, nodeId },
             data: {
                 status: "success",
-                outputs: { result: output },
+                outputs: { result: output as any },
                 endedAt,
                 duration,
             },
