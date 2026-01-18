@@ -1,10 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
+const globalForPrisma = globalThis as unknown as { prisma: PrismaClient | undefined };
 
-export const db = globalForPrisma.prisma || new PrismaClient({
-    // @ts-ignore - Prisma 7 constructor requires datasourceUrl, despite type mismatch
-    datasourceUrl: process.env.DATABASE_URL || "postgresql://dummy:dummy@localhost:5432/dummy",
-});
+export const db = globalForPrisma.prisma ?? new PrismaClient();
+// Prisma Client Singleton
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;
