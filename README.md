@@ -15,7 +15,7 @@ A visual DAG workflow builder for LLM-based pipelines. Think Weavy-style UI but 
 ## Deployment
 
 ### Live Demo
-[INSERT YOUR VERCEL URL HERE]
+**[https://llm-workflow-builder-alpha.vercel.app/](https://llm-workflow-builder-alpha.vercel.app/)**
 
 ### Deploy Your Own
 
@@ -109,7 +109,7 @@ src/
 │   ├── modals/        # Load workflow modal
 │   └── nodes/         # Custom node components
 └── lib/
-    ├── db.ts          # Prisma client
+    ├── prisma.ts      # Prisma client singleton
     ├── executor.ts    # Workflow execution logic
     ├── store.ts       # Zustand state
     └── types.ts       # TypeScript types
@@ -134,11 +134,12 @@ src/
 
 ## Tech Used
 
-- Next.js 14 (App Router)
+- Next.js 16 (App Router)
+- React 19
 - React Flow
 - Zustand
-- Prisma + PostgreSQL
+- Prisma 5 + PostgreSQL
 - Clerk
-- Tailwind CSS
+- Tailwind CSS 4
 - Lucide icons
 - Google Gemini API
